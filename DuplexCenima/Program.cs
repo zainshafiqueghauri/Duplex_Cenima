@@ -1,3 +1,5 @@
+using DuplexCenima.Data;
+
 namespace DuplexCenima
 {
     public class Program
@@ -8,6 +10,7 @@ namespace DuplexCenima
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContext<AppDbContext>(options => options.());
 
             var app = builder.Build();
 
