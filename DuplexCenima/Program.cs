@@ -1,4 +1,6 @@
 using DuplexCenima.Data;
+using DuplexCenima.Data.Services;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace DuplexCenima
@@ -11,7 +13,11 @@ namespace DuplexCenima
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            //db configuration 
             builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
+
+            //services configuration
+            builder.Services.AddScoped<iActorServices, ActorService>();
 
             var app = builder.Build();
 

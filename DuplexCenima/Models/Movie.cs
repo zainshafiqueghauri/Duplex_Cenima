@@ -22,7 +22,7 @@ namespace DuplexCenima.Models
         //cinema
         public int CinemaId { get; set; }
         [ForeignKey("CinemaId")]
-        public Cinema Cinemas { get; set; }
+        public Cinema Cinema { get; set; }
 
 
         //producer

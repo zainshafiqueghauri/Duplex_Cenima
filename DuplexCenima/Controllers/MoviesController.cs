@@ -13,7 +13,7 @@ namespace DuplexCenima.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var MoviesData = await _context.Movies.ToListAsync();
+            var MoviesData = await _context.Movies.Include(n => n.Cinema).ToListAsync();
             return View(MoviesData);
         }
     }
