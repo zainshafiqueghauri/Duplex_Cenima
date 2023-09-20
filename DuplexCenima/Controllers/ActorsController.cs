@@ -15,7 +15,7 @@ namespace DuplexCenima.Controllers
         }
         public async Task <IActionResult> Index()
         {
-            var ActorData =await _service.GetAll(); //taking data from the actor data through the App db context 
+            var ActorData = await _service.GetAllAsync(); //taking data from the actor data through the App db context 
             return View(ActorData);
         }
 
@@ -33,8 +33,20 @@ namespace DuplexCenima.Controllers
             {
                 return View(actor);
             }
-            _service.Add(actor);
+            await _service.AddAsync(actor);
             return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            //var ActorData = await _service.GetByIdAsync(id);
+            //if (ActorData == null) return View("Empty");
+            //return View(ActorData);
+
+            var actorDetail = await _service.GetByIdAsync(id);
+
+            if (actorDetail == null) return View("NOT FOUND");
+            return View(actorDetail);
         }
     }
 }
