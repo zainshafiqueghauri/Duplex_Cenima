@@ -18,6 +18,10 @@ namespace DuplexCenima
 
             //services configuration
             builder.Services.AddScoped<iActorServices, ActorService>();
+            //producers services
+            builder.Services.AddScoped<iProducersServices, ProducersService>();
+            //cinema Service
+            builder.Services.AddScoped<iCinemasService, CinemaService>();
 
             var app = builder.Build();
 

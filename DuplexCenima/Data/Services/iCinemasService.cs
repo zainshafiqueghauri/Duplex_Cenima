@@ -3,8 +3,7 @@ using DuplexCenima.Models;
 
 namespace DuplexCenima.Data.Services
 {
-    public interface iActorServices:iEntityBaseRepository<Actor>
+    public interface iCinemasService:iEntityBaseRepository<Cinema>
     {
-
     }
 }

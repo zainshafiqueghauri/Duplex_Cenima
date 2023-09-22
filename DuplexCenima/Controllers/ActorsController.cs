@@ -19,7 +19,7 @@ namespace DuplexCenima.Controllers
             return View(ActorData);
         }
 
-        //get actor create View from teh view>actor>create
+        //get: actor create
         public IActionResult Create()
         {
 
@@ -27,16 +27,17 @@ namespace DuplexCenima.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([Bind("FullName,ProfilePictureURL,Bio")]Actor actor) 
+        public async Task<IActionResult> Create(Actor actor) 
         {
-            if(!ModelState.IsValid)
-            {
-                return View(actor);
-            }
+            //if(!ModelState.IsValid)
+            //{
+            //    return View(actor);
+            //}
             await _service.AddAsync(actor);
             return RedirectToAction(nameof(Index));
         }
 
+        //get:Actor detail
         public async Task<IActionResult> Details(int id)
         {
             //var ActorData = await _service.GetByIdAsync(id);
@@ -47,6 +48,44 @@ namespace DuplexCenima.Controllers
 
             if (actorDetail == null) return View("NOT FOUND");
             return View(actorDetail);
+        }
+
+        //get: actor> update fuction 
+        public async Task<IActionResult> Edit(int id)
+        {
+            var actorDetail = await _service.GetByIdAsync(id);
+            if (actorDetail == null) return View("NOT FOUND");
+            return View(actorDetail);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, Actor actor)
+        {
+            //if(!ModelState.IsValid)
+            //{
+            //    return View(actor);
+            //}
+            await _service.UpdateAsync(id,actor);
+            return RedirectToAction(nameof(Index));
+        }
+
+        //get: Actor Delete Fuction
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            var actorDelete = await _service.GetByIdAsync(id);
+            if (actorDelete == null) return View("NOT FOUND");
+            return View(actorDelete);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var actorDelete = await _service.GetByIdAsync(id);
+            if (actorDelete == null) return View("NOT FOUND");
+
+            await _service.DeleteAsync(id);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

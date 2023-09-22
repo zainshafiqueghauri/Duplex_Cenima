@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using DuplexCenima.Data.Base;
+using System.ComponentModel.DataAnnotations;
 
 namespace DuplexCenima.Models
 {
-    public class Cinema
+    public class Cinema:iEntityBase
     {
         [Key]
         public int Id { get; set; }

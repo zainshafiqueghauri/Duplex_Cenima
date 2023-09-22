@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace DuplexCenima.Views.Actors
+namespace DuplexCenima.Views.Shared
 {
-    public class DetailModel : PageModel
+    public class NotFoundModel : PageModel
     {
         public void OnGet()
         {

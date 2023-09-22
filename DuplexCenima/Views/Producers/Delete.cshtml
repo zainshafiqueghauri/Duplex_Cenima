@@ -1,7 +1,7 @@
-﻿@model Actor
+﻿@model Producer
 
 @{
-    ViewData["Title"] = "Add New Actor";
+    ViewData["Title"] = "Delete Producer";
 }
 
 
@@ -9,13 +9,11 @@
     <div class="col-md-8 offset-2">
         <p>
             <h1>
-                Add New Actor
+                Delete Confirmation for @Model.FullName
             </h1>
         </p>
         <div class="row">
             <div class="col-md-8 offset-2">
-                <form asp-action="Create">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                     <div class="form-group text-center">
                         <img class="border-info rounded-circle" style="max-width: 150px;" id="ProfilePicturePreview" />
@@ -36,11 +34,12 @@
                         <span asp-validation-for="Bio" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <input type="submit" value="Create" class="btn btn-outline-success float-right" />
+                        <form asp-action="Delete" >
+                            <input type="hidden" asp-for="Id"/>
+                            <input type="submit" value="Confirm" class="btn btn-danger float-right" />
+                        </form>
                         <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
                     </div>
-                </form>
-            </div>
         </div>
     </div>
 </div>
@@ -54,9 +53,9 @@
         })
 
 
-    $("#ProfilePictureURL").on("change", function(){
-        var output = document.getElementById('ProfilePicturePreview')
-        output.src = $(this).val();
-    })
+        $("#ProfilePictureURL").on("change", function () {
+            var output = document.getElementById('ProfilePicturePreview')
+            output.src = $(this).val();
+        })
     </script>
 }
