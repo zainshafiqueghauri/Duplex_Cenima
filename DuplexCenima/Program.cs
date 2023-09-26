@@ -22,7 +22,8 @@ namespace DuplexCenima
             builder.Services.AddScoped<iProducersServices, ProducersService>();
             //cinema Service
             builder.Services.AddScoped<iCinemasService, CinemaService>();
-
+            //Movies Service
+            builder.Services.AddScoped<iMoviesService, MoviesService>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

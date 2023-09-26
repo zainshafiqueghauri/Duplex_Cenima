@@ -44,7 +44,7 @@ namespace DuplexCenima.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var ProducerDetail = await _serviece.GetByIdAsync(id);
-            if( ProducerDetail == null ) return View("NotFound");
+            if( ProducerDetail == null ) return View("NOT FOUND");
             return View(ProducerDetail);
         }
 
@@ -63,7 +63,7 @@ namespace DuplexCenima.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var ProducerDetail = await _serviece.GetByIdAsync(id);
-            if (ProducerDetail == null) return View("NotFound");
+            if (ProducerDetail == null) return View("NOT FOUND");
             return View(ProducerDetail);
         }
 

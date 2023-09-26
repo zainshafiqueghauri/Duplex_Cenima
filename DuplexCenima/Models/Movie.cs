@@ -1,9 +1,10 @@
 ﻿using DuplexCenima.Data;
+using DuplexCenima.Data.Base;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DuplexCenima.Models
 {
-    public class Movie
+    public class Movie:iEntityBase
     {
         public int Id { get; set; }
         public string Name { get; set; }

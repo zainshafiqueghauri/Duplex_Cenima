@@ -71,18 +71,19 @@ namespace DuplexCenima.Controllers
 
         //get: Actor Delete Fuction
 
+        //get/Cinema/Delete
         public async Task<IActionResult> Delete(int id)
         {
-            var actorDelete = await _service.GetByIdAsync(id);
-            if (actorDelete == null) return View("NOT FOUND");
-            return View(actorDelete);
+            var ProducerDetail = await _service.GetByIdAsync(id);
+            if (ProducerDetail == null) return View("NotFound");
+            return View(ProducerDetail);
         }
 
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var actorDelete = await _service.GetByIdAsync(id);
-            if (actorDelete == null) return View("NOT FOUND");
+            var ProducerDetail = await _service.GetByIdAsync(id);
+            if (ProducerDetail == null) return View("NotFound");
 
             await _service.DeleteAsync(id);
             return RedirectToAction(nameof(Index));

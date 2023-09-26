@@ -1,6 +1,7 @@
 ﻿using DuplexCenima.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System.Linq.Expressions;
 
 namespace DuplexCenima.Data.Base
 {
@@ -26,6 +27,14 @@ namespace DuplexCenima.Data.Base
         }
 
         public async Task<IEnumerable<T>> GetAllAsync() => await _context.Set<T>().ToListAsync();
+
+        public async Task<IEnumerable<T>> GetAllAsync(params Expression<Func<T, object>>[] includeproperties)
+        {
+            IQueryable<T> Query = _context.Set<T>();
+            Query = includeproperties.Aggregate(Query,(current, includeproperty) => current.Include(includeproperty));
+            return await Query.ToListAsync();
+        }
+
         public async Task<T> GetByIdAsync(int id) => await _context.Set<T>().FirstOrDefaultAsync(x => x.Id == id);
            
         public async Task UpdateAsync(int id, T entity)
