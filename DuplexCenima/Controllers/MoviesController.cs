@@ -19,6 +19,19 @@ namespace DuplexCenima.Controllers
             var MoviesData = await _service.GetAllAsync(n => n.Cinema);
             return View(MoviesData);
         }
+        public async Task<IActionResult> Filter(string searchString)
+        {
+            var allMovies = await _service.GetAllAsync(n => n.Cinema);
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                var filtereResult = allMovies.Where(n => n.Name.Contains(searchString) || n.Description.Contains
+                (searchString)).ToList();
+                return View("Index", filtereResult);
+            }
+
+            return View("Index", allMovies);
+        }
 
         //get/movie/detail
         public async Task<IActionResult> Details(int id)
@@ -80,13 +93,14 @@ namespace DuplexCenima.Controllers
             ViewBag.Producers = new SelectList(movieDropdownsData.Producers, "Id", "FullName");
             ViewBag.Actors = new SelectList(movieDropdownsData.Actors, "Id", "FullName");
 
-            return View();
+            return View(response);
         }
 
         [HttpPost]
         public async Task<IActionResult> Edit(int id, NewMovieVM movie)
         {
             if (id != movie.Id) return View("NOT FOUND");
+            
             if (!ModelState.IsValid)
             {
                 var movieDropdownsData = await _service.GetNewMovieDropdownValues();

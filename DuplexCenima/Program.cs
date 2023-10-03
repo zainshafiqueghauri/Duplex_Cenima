@@ -1,4 +1,5 @@
 using DuplexCenima.Data;
+using DuplexCenima.Data.Cart;
 using DuplexCenima.Data.Services;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -24,7 +25,12 @@ namespace DuplexCenima
             builder.Services.AddScoped<iCinemasService, CinemaService>();
             //Movies Service
             builder.Services.AddScoped<iMoviesService, MoviesService>();
+            //shopping cart
+            builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            builder.Services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
+            builder.Services.AddSession();
             var app = builder.Build();
+
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

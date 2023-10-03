@@ -70,7 +70,8 @@ namespace DuplexCenima.Data.Services
         public async Task UpdateMovieAysnc(NewMovieVM data)
         {
             var dbMovie =  await _context.Movies.FirstOrDefaultAsync(n => n.Id ==  data.Id);
-            if (dbMovie == null) 
+            
+            if (dbMovie != null) 
             {
                 dbMovie.Name = data.Name;
                 dbMovie.Description = data.Description;
@@ -81,7 +82,6 @@ namespace DuplexCenima.Data.Services
                 dbMovie.EndDate = data.EndDate;
                 dbMovie.MovieCategory = data.MovieCategory;
                 dbMovie.ProducerId = data.ProducerId;
-            
                 await _context.SaveChangesAsync();
             }
 
@@ -103,4 +103,4 @@ namespace DuplexCenima.Data.Services
             await _context.SaveChangesAsync();
         }
     }
-}
+} 
