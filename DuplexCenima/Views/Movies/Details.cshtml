@@ -84,7 +84,7 @@
                                     <a class="btn btn-outline-primary float-right" asp-action="Index">
                                         back to list
                                     </a>
-                                    <a class="btn btn-outline-primary"><i class="bi bi-cart-plus"></i> Add To Cart (Price @Model.Price.ToString("c"))</a>
+                                <a class="btn btn-outline-primary" asp-asp-controller="Orders" asp-action="AddItemToShoppingCart" asp-route-id="@Model.Id"><i class="bi bi-cart-plus"></i> Add To Cart (Price @Model.Price.ToString("c"))</a>
                                 </p>
                             </div>
                         </div>

@@ -1,6 +1,9 @@
 using DuplexCenima.Data;
 using DuplexCenima.Data.Cart;
 using DuplexCenima.Data.Services;
+using DuplexCenima.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,10 +28,22 @@ namespace DuplexCenima
             builder.Services.AddScoped<iCinemasService, CinemaService>();
             //Movies Service
             builder.Services.AddScoped<iMoviesService, MoviesService>();
+            //order services
+            builder.Services.AddScoped<IOrdersService, OrdersService>();
+             
             //shopping cart
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             builder.Services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
+
+            //authentication and authorization
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>();
+            builder.Services.AddMemoryCache();
             builder.Services.AddSession();
+            builder.Services.AddAuthentication(option =>
+            {
+                option.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            });
             var app = builder.Build();
 
 
@@ -44,6 +59,11 @@ namespace DuplexCenima
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseSession();
+
+            //authentication and authorization
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseAuthorization();
 
@@ -53,6 +73,7 @@ namespace DuplexCenima
 
             //seed database
             AppDbInitializer.Seed(app);
+            AppDbInitializer.SeedUsersAndRolesAsync(app).Wait();
 
 
             app.Run();
